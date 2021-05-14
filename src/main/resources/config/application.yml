@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(vEpmde/jCB23xb/xVoQAhp4r2BZYnFfczhAcBa0q4c4/BwrZ8ugGwhc7Zf0s93lN0LeArH8A308as8LNY+S5QPnijULToFE3LkP3X/cSNlQMOTUM4bezDmuobPSHgv8+)
+    username: ENC(aiVvWk3mbVhCR49ck3HIGA==)
+    password: ENC(yVjc32lTa9N4kPuBD9kRuH/oLfVZyyyv)
+    sql-script-encoding: UTF-8
+    initialization-mode: always
+
+  logging:
+    config: classpath:config/logback.xml
+
+  security:
+    user:
+      name: admin
+      password: 1234
+
+  messages:
+    basename: classpath:/messages/message
+    encoding: utf-8
+
+
+mybatis:
+  type-aliases-package: com.cjenm.mwave.apis.app.**.model
+  mapper-locations: mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    use-actual-param-name: true
+    call-setters-on-nulls: true
+    jdbc-type-for-null: null
+
+
+
+server:
+  port: 8080
+
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+

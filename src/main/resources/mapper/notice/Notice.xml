@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjenm.mwave.apis.app.notice.mapper.NoticeMapper">
+    <select id="selectNotice" resultType="notice">
+        select SEQ
+             , TTL
+             , CONT
+             , READ_CNT
+             , DISP_YN
+             , USE_YN
+             , FILE_SEQ
+             , RGST_ID
+             , RGST_YMDT
+             , RGST_IP
+             , MOD_ID
+             , MOD_YMDT
+             , MOD_IP
+            from tb_notice
+            where SEQ = #{seq}
+    </select>
+
+    <select id="selectNoticeList" parameterType="String" resultType="notice">
+        select SEQ
+             , TTL
+             , CONT
+             , READ_CNT
+             , DISP_YN
+             , USE_YN
+             , FILE_SEQ
+             , RGST_ID
+             , RGST_YMDT
+             , RGST_IP
+             , MOD_ID
+             , MOD_YMDT
+             , MOD_IP
+            from tb_notice
+            where DISP_YN = 'Y'
+              and USE_YN = 'Y'
+              and (IFNULL(#{ttl}, '') = '' OR TTL LIKE concat('%', #{ttl}, '%'))
+    </select>
+
+    <insert id="insertNotice" parameterType="notice">
+        INSERT
+            INTO tb_notice
+            ( TTL
+            , CONT
+            , READ_CNT
+            , DISP_YN
+            , USE_YN
+            , FILE_SEQ
+            , RGST_ID
+            , RGST_YMDT
+            , RGST_IP
+            , MOD_ID
+            , MOD_YMDT
+            , MOD_IP
+            )
+            VALUES
+            ( #{ttl}
+            , #{cont}
+            , #{readCnt}
+            , #{dispYn}
+            , #{useYn}
+            , #{fileSeq}
+            , #{rgstId}
+            , now()
+            , #{rgstIp}
+            , #{modId}
+            , now()
+            , #{modIp}
+            )
+    </insert>
+
+    <update id="updateNotice" parameterType="notice">
+        UPDATE tb_notice
+        SET
+            TTL       = #{ttl}
+          , CONT      = #{cont}
+          , READ_CNT  = #{readCnt}
+          , DISP_YN   = #{dispYn}
+          , USE_YN    = #{useYn}
+          , FILE_SEQ  = #{fileSeq}
+          , MOD_ID    = #{modId}
+          , MOD_YMDT  = now()
+          , MOD_IP    = #{modIp}
+            WHERE SEQ = #{seq}
+    </update>
+
+    <delete id="deleteNotice">
+        DELETE
+            FROM tb_notice
+            WHERE SEQ = #{seq}
+    </delete>
+
+
+</mapper>
